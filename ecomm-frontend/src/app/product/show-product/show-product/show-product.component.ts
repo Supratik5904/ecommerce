@@ -5,6 +5,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { ShowImageDialogComponent } from '../../show-images/show-image-dialog/show-image-dialog.component';
 import { ImageProcessingService } from 'src/app/services/image-processing.service';
 import { map } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-show-product',
@@ -13,9 +14,13 @@ import { map } from 'rxjs';
 })
 export class ShowProductComponent {
 
+
   products?:Product[];
 
-  constructor(private productService: ProductService,public dialog: MatDialog,private imageService:ImageProcessingService){}
+  constructor(private productService: ProductService,
+    public dialog: MatDialog,
+    private imageService:ImageProcessingService,
+    private router: Router){}
 
   public ngOnInit(): void {
 
@@ -47,6 +52,12 @@ export class ShowProductComponent {
       height: '400px',
       width: '600px',
     });
+  }
+
+  openEditor(prodId: number) {
+    this.router.navigate(['/editProduct'],{
+      queryParams: {productId: prodId}
+    })
   }
 
 }

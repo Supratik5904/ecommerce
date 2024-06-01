@@ -31,4 +31,20 @@ public class ProductService {
     public void deleteProduct(Long productId){
         productRepository.deleteById(productId);
     }
+
+    public Product getProductById(Long productId) {
+        Optional<Product> product = productRepository.findById(productId);
+        return product.orElse(null);
+    }
+
+    public Product editProduct(Product product){
+        Product exisitngEntity = productRepository.findById(product.getProductId()).get();
+        exisitngEntity.setCategory(product.getCategory());
+        exisitngEntity.setProductName(product.getProductName());
+        exisitngEntity.setProductDescription(product.getProductDescription());
+        exisitngEntity.setProductDiscountPrice(product.getProductDiscountPrice());
+        exisitngEntity.setProductPrice(product.getProductPrice());
+        exisitngEntity.setProductImages(product.getProductImages());
+        return productRepository.save(product);
+    }
 }

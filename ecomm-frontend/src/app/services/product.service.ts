@@ -17,6 +17,14 @@ export class ProductService {
   }
 
   public getProducts(){
-    return this.httpClient.get<Product[]>(this.API_PATH)
+    return this.httpClient.get<Product[]>(this.API_PATH+"/allProducts")
+  }
+
+  public getProductById(productId:number){
+    return this.httpClient.get<Product>(this.API_PATH+`/${productId}`)
+  }
+
+  public updateProduct(product: FormData){
+    return this.httpClient.put(this.API_PATH+"/update",product);
   }
 }

@@ -10,11 +10,14 @@ import { SignupComponent } from './signup/signup.component';
 import { UserGuardGuard } from './auth/user-guard.guard';
 import { ProductComponent } from './product/add-product/product.component';
 import { ShowProductComponent } from './product/show-product/show-product/show-product.component';
+import { EditProductComponent } from './product/edit-product/edit-product.component';
+import { ProductResolverService } from './services/product-resolver.service';
 
 const routes: Routes = [
   {path:"home",component:HomeComponent},
   {path:"signup",component:SignupComponent},
   {path:"addNewProduct",component:ProductComponent,canActivate:[AdminGuardGuard]},
+  {path:"editProduct",component:EditProductComponent,canActivate:[AdminGuardGuard],resolve:{product: ProductResolverService}},
   {path:"showProducts",component: ShowProductComponent,canActivate: [AdminGuardGuard]},
   {path:"admin",component:AdminComponent, canActivate: [AdminGuardGuard]},
   {path:"user",component:UserComponent,canActivate: [UserGuardGuard]},

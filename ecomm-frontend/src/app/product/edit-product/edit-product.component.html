@@ -1,0 +1,71 @@
+<div class="container mt-5">
+  <div class="card p-2">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6">
+          <form #productForm="ngForm" (ngSubmit)="onProductEdit(productForm)">
+            <div class="mb-3">
+              <label for="productId" class="form-label">Product Id</label>
+              <input [(ngModel)]="product.productId" name="productId" class="form-control" id="productId"
+                disabled="true">
+            </div>
+            <div class="mb-3">
+              <label for="productName" class="form-label">Product Name</label>
+              <input [(ngModel)]="product.productName" name="productName" type="text" class="form-control"
+                id="productName" required>
+            </div>
+            <div class="mb-3">
+              <label for="productDescription" class="form-label">Product Description</label>
+              <input [(ngModel)]="product.productDescription" name="productDescription" type="text" class="form-control"
+                id="productDescription" required>
+            </div>
+            <div class="mb-3">
+              <label for="productPrice" class="form-label">Product Actual Price</label>
+              <input [(ngModel)]="product.productPrice" name="productPrice" type="number" class="form-control"
+                id="productPrice" required>
+            </div>
+            <div class="mb-3">
+              <label for="productDiscountPrice" class="form-label">Product Discount Price</label>
+              <input [(ngModel)]="product.productDiscountPrice" name="productDiscountPrice" type="text"
+                class="form-control" id="productDiscountPrice" required>
+            </div>
+            <div class="mb-3">
+              <label for="category" class="form-label">Category</label>
+              <input [(ngModel)]="product.category.categoryName" name="category" type="text" class="form-control"
+                id="category" required>
+            </div>
+            <div align="end">
+              <button class="btn btn-danger" style="margin-right: 3px;">Clear</button>
+              <button type="submit" class="btn btn-primary" [disabled]="!productForm.form.valid">Add Product</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-6">
+          <div>
+            <div class="dropzone" appDrag (fileDropped)="fileDropped($event)">
+              <input type="file" #fileDropRef id="fileDropRef" multiple (change)="onFileSelect($event)" />
+              <img src="assets/img/dnd/ic-upload-file.svg" alt="">
+              <h3>Drag and drop file here</h3>
+              <h3>or</h3>
+              <label for="fileDropRef">Browse for file</label>
+            </div>
+          </div>
+          <div class="mt-5">
+            <div class="row">
+              <mat-grid-list cols="4" rowHeight="1:1">
+                <mat-grid-tile *ngFor="let file of product.productImages;let i =index">
+                  <div style="position: relative;">
+                    <span class="btn-remove-image" (click)="removeImages(i)">X</span>
+                    <img [src]="file.url" width="100px" height="100px">
+                  </div>
+                </mat-grid-tile>
+              </mat-grid-list>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

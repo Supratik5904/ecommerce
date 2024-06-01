@@ -21,10 +21,11 @@ public class Product {
     @Column(name="product_id")
     private Long productId;
     private String productName;
+    @Column(length = 5000)
     private String productDescription;
     private Double productPrice;
     private Double productDiscountPrice;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name="category_id")
     private Category category;
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)

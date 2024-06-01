@@ -26,7 +26,9 @@ import { ProductComponent } from './product/add-product/product.component';
 import { ShowProductComponent } from './product/show-product/show-product/show-product.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 import { ShowImageDialogComponent } from './product/show-images/show-image-dialog/show-image-dialog.component';
+import { EditProductComponent } from './product/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { ShowImageDialogComponent } from './product/show-images/show-image-dialo
     AlertComponent,
     DragDirective,
     ShowProductComponent,
-    ShowImageDialogComponent
+    ShowImageDialogComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { ShowImageDialogComponent } from './product/show-images/show-image-dialo
     MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS,useClass: AuthInterceptor,multi:true},

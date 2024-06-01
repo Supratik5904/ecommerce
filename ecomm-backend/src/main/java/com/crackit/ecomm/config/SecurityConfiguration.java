@@ -31,7 +31,7 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
-                        req.requestMatchers("/api/v1/auth/*")
+                        req.requestMatchers("/api/v1/auth/*","/api/v1/products/allProducts")
                                 .permitAll()
                                 .requestMatchers("/api/v1/products/**").hasAnyRole(ADMIN.name(), MEMBER.name())
                                 .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MEMBER.name())
@@ -39,6 +39,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MEMBER_CREATE.name())
                                 .requestMatchers(GET, "/api/v1/products/**").hasAnyAuthority(ADMIN_READ.name(), MEMBER_READ.name())
                                 .requestMatchers(POST, "/api/v1/products/**").hasAnyAuthority(ADMIN_CREATE.name(), MEMBER_CREATE.name())
+                                .requestMatchers(PUT,"/api/v1/products/**").hasAnyAuthority(ADMIN_CREATE.name())
                                 .anyRequest()
                                 .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

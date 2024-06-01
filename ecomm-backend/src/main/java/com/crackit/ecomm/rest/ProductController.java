@@ -54,9 +54,27 @@ public class ProductController {
         return imageSet;
     }
 
-    @GetMapping
+    @GetMapping("/allProducts")
     public List<Product> getAllProducts(){
         return productService.getAllProducts();
+    }
+
+    @GetMapping("/{productId}")
+    public Product getProductById(@PathVariable("productId") Long productId){
+        return productService.getProductById(productId);
+    }
+
+    @PutMapping
+    @RequestMapping(value = "/update",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public Product updateProductById(@RequestPart("product") Product product ,@RequestPart("image") MultipartFile[] file){
+        Set<ProductImage> imageSet = null;
+        try {
+            imageSet = uploadImage(file);
+            product.setProductImages(imageSet);
+            return productService.editProduct(product);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @DeleteMapping("/deleteProduct/{productId}")
