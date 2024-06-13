@@ -1,0 +1,64 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-6 prd-images">
+      <div class="product-container-image">
+        <div class="p" *ngFor="let image of product.productImages" (mouseover)="changeImage($event,product.productId)">
+          <img [src]="image.url" [alt]="product.productName">
+        </div>
+      </div>
+      <img [id]="product.productId+'image'" [src]="product.productImages[0].url" class="img-top" alt="...">
+    </div>
+    <div class="col-6">
+      <div class="card-body">
+        <h1 class="card-title">{{product.productName}}</h1>
+        <p class="card-text" style="font-weight: 900;">About this item: </p>
+        <p class="card-text">{{product.productDescription}}</p>
+        <p class="card-text"><b>Price :</b></p>
+        <p style="text-decoration: line-through;">{{product.productPrice | currency : 'INR' : 'symbol'}}</p>
+        <p class="card-text"><b>Discount Price :</b></p>
+        <p>{{product.productDiscountPrice | currency : 'INR':'symbol'}}</p>
+        <div class="fixed-button">
+          <button type="button" class="btn btn-primary " (click)="buy(product)">Buy Now</button>
+          <button type="button" class="btn btn-warning " (click)="addToCart(product)">Add to Cart</button>
+          <div>
+            <label>
+              Qty:
+            </label>
+          </div>
+          <select class="form-select" [(ngModel)]="quantity" style="width: 3.5rem; margin-top: 2px;">
+            <option *ngFor="let i of maxSelect" [value]="i">{{ i }}</option>
+          </select>
+        </div>
+        <div class="reviews">
+          <a class="link-success" (click)="toggleReviews()">Customer Reviews</a>
+          <app-reviews [ngClass]="{'pr_hidden' : !showReview,'pr_show':showReview}" [reviews]="reviews"></app-reviews>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+<div class="container mt-5">
+  <h2>Related Items: </h2>
+  <hr>
+
+  <div class="row product-rows">
+
+    <div class="card card-container" *ngFor="let prod of suggestedProducts">
+      <div class="product-container">
+        <div class="p" *ngFor="let image of prod.productImages" (mouseover)="changeImage($event,prod.productId)">
+          <img [src]="image.url" [alt]="prod.productName">
+        </div>
+      </div>
+      <img [id]="prod.productId+'image'" [src]="prod.productImages[0].url" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h2 class="card-title">{{prod.productName}}</h2>
+        <p class="card-text discount">{{prod.productDiscountPrice | currency : 'INR':'symbol'}}</p>
+        <p class="card-text price">{{prod.productPrice |currency: 'INR':'symbol'}}</p>
+        <button class="btn btn-primary" (click)="viewDetails(prod.productId)">View Details</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>

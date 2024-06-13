@@ -1,0 +1,12 @@
+<div class="container mt-5">
+  <ul class="reviews-list" *ngFor="let review of reviews">
+    <li>{{review.review}}</li>
+  </ul>
+  <form>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Add Your Review</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      <button type="submit" class="btn btn-primary" style="margin-top: 2.5rem;">Add Your Review</button>
+    </div>
+  </form>
+</div>

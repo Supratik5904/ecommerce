@@ -23,6 +23,7 @@ import java.io.IOException;
 public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    public static String CURR_USER = "";
 
     @Override
     protected void doFilterInternal
@@ -43,6 +44,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         //Verify whether user is present in db
         //Verify whether token is valid
         email = jwtService.extractUsername(jwt);
+        CURR_USER = email;
         //If user is present and no authentication object in securityContext
         if(email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);

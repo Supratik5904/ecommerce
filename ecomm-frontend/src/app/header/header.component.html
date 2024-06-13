@@ -45,8 +45,6 @@
             <a *ngIf="isLoggedIn && isAdmin" routerLink="/showProducts"
               class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Show
               Products</a>
-            <a *ngIf="isLoggedIn" routerLink="/home"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">User</a>
           </div>
         </div>
       </div>
@@ -59,10 +57,14 @@
           class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
           Sign Up
         </button>
-        <button *ngIf="isLoggedIn" routerLink="/signup" type="button"
+        <button *ngIf="isLoggedIn" routerLink="/login" type="button"
           class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
           (click)=" logout()">
           Logout
+        </button>
+        <button *ngIf="isLoggedIn" routerLink="/cart" type="button"
+          class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+          Cart
         </button>
         <button *ngIf="isLoggedIn" type="button"
           class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -90,8 +92,6 @@
       <a routerLink="/addNewProduct"
         class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Add
         Product</a>
-      <a routerLink="/user"
-        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">User</a>
     </div>
   </div>
 </nav>

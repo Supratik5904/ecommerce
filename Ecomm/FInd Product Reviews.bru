@@ -1,0 +1,15 @@
+meta {
+  name: FInd Product Reviews
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:8080/api/v1/reviews/?productId=1
+  body: none
+  auth: none
+}
+
+params:query {
+  productId: 1
+}

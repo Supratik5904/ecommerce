@@ -1,3 +1,14 @@
+<div class="nav">
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <form #searchForm=ngForm (keyup)="onSearchDebounce()" class="d-flex">
+        <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+          [(ngModel)]="searchKey">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+</div>
 <div class="container mt-5">
   <table class="table">
     <thead class="table-dark">
@@ -49,4 +60,7 @@
       </tr>
     </tbody>
   </table>
+</div>
+<div class="load-more-btn">
+  <button type="button" class="btn btn-warning load-btn" (click)="loadMoreProduct()">Load More</button>
 </div>

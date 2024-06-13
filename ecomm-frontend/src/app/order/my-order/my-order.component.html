@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <h1 class="text-center">Order History</h1>
+  <div *ngFor="let order of orderDetails">
+    <div class="card" style="margin-bottom: 5rem;"
+      [ngClass]="order.orderStatus == 'PLACED'? 'bg-light' : order.orderStatus == 'DELIVERED'?'bg-success':'bg-danger'">
+      <div class="card-header">
+        Order ID : {{order.orderId}}
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><b>Status: </b>{{order.orderStatus}}</h5>
+        <div class="card-text">
+          <ul class="list-group" *ngFor="let prd of order.product">
+            <li class="list-group-item">
+              <p>Product Name : {{prd.product.productName}}</p>
+              <hr>
+              <p>Price : {{prd.product.productDiscountPrice | currency : 'INR':'symbol'}}</p>
+            </li>
+          </ul>
+        </div>
+        <p class="card-text"><b>Total Amount: </b>{{order.orderAmount | currency : 'INR':'symbol'}}</p>
+        <p class="card-text"><b>Address: </b>{{order.orderFullOrder}}</p>
+        <p class="card-text"><b>Contact: </b>{{order.orderContactNumber}}</p>
+        <div class="buttons">
+          <button *ngIf="order.orderStatus == 'DELIVERED' " class=" btn btn-primary text-center"
+            (click)="downloadInvoice(order.orderId)">Download
+            invoice</button>
+          <button *ngIf="order.orderStatus == 'PLACED' " class="btn btn-danger text-center"
+            (click)="cancelOrder(order)">Cancel Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

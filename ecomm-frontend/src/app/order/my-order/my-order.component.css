@@ -1,0 +1,14 @@
+.list-group {
+  padding: auto;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.buttons {
+
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-content: center;
+}

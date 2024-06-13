@@ -15,4 +15,5 @@ export class ShowImageDialogComponent {
     //Add 'implements OnInit' to the class.
 
   }
+
 }

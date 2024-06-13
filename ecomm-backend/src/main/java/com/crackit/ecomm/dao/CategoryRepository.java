@@ -11,5 +11,6 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface CategoryRepository extends JpaRepository<Category,Long> {
-    Optional<Category> findCategoriesByCategoryName(@Param("categoryName") String categoryName);
+    Optional<Category> findCategoriesByCategoryNameContainingIgnoreCase(@Param("categoryName") String categoryName);
+
 }

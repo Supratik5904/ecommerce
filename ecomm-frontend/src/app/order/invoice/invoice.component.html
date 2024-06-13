@@ -1,0 +1,64 @@
+<div class="container mt-2">
+  <button class="btn btn-primary" (click)="convetToPDF()">Export To PDF</button>
+</div>
+<div class="container mt-5 mb-3" id="pdfTable" #pdfTable>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="d-flex flex-row p-2">
+          <div class="d-flex flex-column"> <span class="font-weight-bold">Tax Invoice</span>
+            <small>{{orderDetail.orderId}}</small>
+          </div>
+        </div>
+
+        <hr>
+        <div class="table-responsive p-2">
+          <table class="table table-borderless">
+            <tbody>
+              <tr class="add">
+                <td>To</td>
+              </tr>
+              <tr class="content">
+                <td class="font-weight-bold">
+                  <p>Name: <br>{{orderDetail.orderFullName}} <br></p>
+                  <p>Contact Number: <br>{{orderDetail.orderContactNumber}}</p>
+                  <p>Address: <br>{{orderDetail.orderFullOrder}}<br></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr>
+        <div class="products p-2">
+          <table class="table table-borderless">
+            <thead>
+              <tr class="add">
+                <td>Description</td>
+                <td>Quantity</td>
+                <td>Price</td>
+                <td>Amount</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="content" *ngFor="let prod of orderDetail.product">
+                <td>{{prod.product.productName}}</td>
+                <td>{{prod.quantity}}</td>
+                <td>{{prod.product.productDiscountPrice | currency : 'INR':'symbol'}}</td>
+                <td>{{prod.product.productDiscountPrice * prod.quantity | currency : 'INR' : 'symbol'}}</td>
+              </tr>
+              <hr />
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Total Amount</td>
+                <td>{{orderDetail.orderAmount | currency : 'INR':'symbol'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>

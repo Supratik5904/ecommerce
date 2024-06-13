@@ -29,6 +29,13 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { ShowImageDialogComponent } from './product/show-images/show-image-dialog/show-image-dialog.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
+import { ProductViewDetailsComponent } from './product/product-view-details/product-view-details.component';
+import { OrderDetailsComponent } from './order/order-details/order-details.component';
+import { CartComponent } from './cart/cart/cart.component';
+import { MyOrderComponent } from './order/my-order/my-order.component';
+import { InvoiceComponent } from './order/invoice/invoice.component';
+import { ReviewsComponent } from './product/reviews/reviews.component';
+import { AllOrderComponent } from './order/all-order/all-order.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +52,14 @@ import { EditProductComponent } from './product/edit-product/edit-product.compon
     DragDirective,
     ShowProductComponent,
     ShowImageDialogComponent,
-    EditProductComponent
+    EditProductComponent,
+    ProductViewDetailsComponent,
+    OrderDetailsComponent,
+    CartComponent,
+    MyOrderComponent,
+    InvoiceComponent,
+    ReviewsComponent,
+    AllOrderComponent
   ],
   imports: [
     BrowserModule,

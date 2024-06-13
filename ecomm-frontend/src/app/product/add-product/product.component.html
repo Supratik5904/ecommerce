@@ -25,9 +25,24 @@
                 class="form-control" id="productDiscountPrice" required>
             </div>
             <div class="mb-3">
-              <label for="category" class="form-label">Category</label>
-              <input [(ngModel)]="product.category.categoryName" name="category" type="text" class="form-control"
-                id="category" required>
+              <div class="row ">
+                <div class="col-4">
+                  <span>Category:</span>
+                  <select #category (change)="onSelectCategories(category.value)">
+                    <option value="">Select a Category</option>
+                    <option *ngFor="let category of categories" [value]="category.categoryName">
+                      {{category.categoryName}}</option>
+                  </select>
+                </div>
+                <div class="col-4" *ngIf="selectedCategory">
+                  <span>Sub Category:</span>
+                  <select name="subCategory" [(ngModel)]="product.category.subCategoryName">
+                    <option value="">Select a Sub Category</option>
+                    <option *ngFor="let subCat of subcategories" [value]="subCat.subCategoryName">
+                      {{subCat.subCategoryName}}</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div align="end">
               <button class="btn btn-danger" style="margin-right: 3px;">Clear</button>

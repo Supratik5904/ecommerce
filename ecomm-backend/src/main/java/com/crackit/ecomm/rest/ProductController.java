@@ -4,12 +4,16 @@ import com.crackit.ecomm.entity.Product;
 import com.crackit.ecomm.entity.ProductImage;
 import com.crackit.ecomm.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,9 +63,36 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @GetMapping("/{productId}")
+
+    @GetMapping("/allProducts/searchQuery")
+    @ResponseBody
+    public List<Product> getAllProductsByQuery(@RequestParam(name= "pageNumber",defaultValue = "0") int pageNo,@RequestParam(name="pageSize",defaultValue = "8") int pageSize,@RequestParam("searchKey") String key){
+        Pageable pageable = PageRequest.of(pageNo,pageSize);
+        return productService.getAllProductsBySearchKeyPaginated(pageable,key);
+    }
+
+    @GetMapping("/allProducts/search")
+    @ResponseBody
+    public List<Product> getAllProductsByQuery(@RequestParam("searchKey") String key){
+        return productService.getAllProductsBySearchKey(key);
+    }
+
+    @GetMapping("/allProducts/byCategory")
+    @ResponseBody
+    public List<Product> getAllProductsByCategory( @RequestParam(name="pageNumber",defaultValue = "0") int pageNo,@RequestParam(name="pageSize",defaultValue = "6") int size,@RequestParam("category") String categoryName){
+        categoryName = URLDecoder.decode(categoryName, StandardCharsets.UTF_8);
+        Pageable pageable = PageRequest.of(pageNo,size);
+        return productService.getAllProductsByCategory(pageable,categoryName);
+    }
+
+    @GetMapping("/get/{productId}")
     public Product getProductById(@PathVariable("productId") Long productId){
         return productService.getProductById(productId);
+    }
+
+    @GetMapping("/get/random/{categoryId}")
+    public List<Product> getRandomProductsByCategory(@PathVariable("categoryId") Long categoryId){
+        return  productService.getRandProducts(categoryId);
     }
 
     @PutMapping
@@ -75,6 +106,11 @@ public class ProductController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @PostMapping("/get/productDetails")
+    public List<Product> getProductDetails(@RequestBody  List<Long> productIdList){
+        return productService.getProductDetails(productIdList);
     }
 
     @DeleteMapping("/deleteProduct/{productId}")

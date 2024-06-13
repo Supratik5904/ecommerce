@@ -1,5 +1,7 @@
 package com.crackit.ecomm.user;
 
+import com.crackit.ecomm.entity.Address;
+import com.crackit.ecomm.entity.OrderDetail;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "_user")
@@ -19,7 +22,8 @@ import java.util.Collection;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private Integer id;
 
     private String firstName;
@@ -27,12 +31,14 @@ public class User implements UserDetails {
     private String lastName;
 
     @Column(nullable = false,unique = true)
-    private String email;
+    private String userName;
 
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "user")
+    private List<OrderDetail> orderDetailList;
 
 
     @Override
@@ -42,7 +48,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return userName;
     }
 
     @Override
