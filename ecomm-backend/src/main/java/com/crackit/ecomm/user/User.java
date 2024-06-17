@@ -2,6 +2,7 @@ package com.crackit.ecomm.user;
 
 import com.crackit.ecomm.entity.Address;
 import com.crackit.ecomm.entity.OrderDetail;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,10 +35,10 @@ public class User implements UserDetails {
     private String userName;
 
     private String password;
-
     @Enumerated(EnumType.STRING)
     private Role role;
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "user")
+    @JsonIgnore
     private List<OrderDetail> orderDetailList;
 
 

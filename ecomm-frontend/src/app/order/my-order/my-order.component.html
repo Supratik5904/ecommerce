@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<!-- <div class="container mt-5">
   <h1 class="text-center">Order History</h1>
   <div *ngFor="let order of orderDetails">
     <div class="card" style="margin-bottom: 5rem;"
@@ -9,13 +9,15 @@
       <div class="card-body">
         <h5 class="card-title"><b>Status: </b>{{order.orderStatus}}</h5>
         <div class="card-text">
-          <ul class="list-group" *ngFor="let prd of order.product">
+          <ol class="list-group" *ngFor="let prd of order.product">
             <li class="list-group-item">
               <p>Product Name : {{prd.product.productName}}</p>
               <hr>
               <p>Price : {{prd.product.productDiscountPrice | currency : 'INR':'symbol'}}</p>
+              <hr>
+              <p>Quantity : {{prd.quantity}}</p>
             </li>
-          </ul>
+          </ol>
         </div>
         <p class="card-text"><b>Total Amount: </b>{{order.orderAmount | currency : 'INR':'symbol'}}</p>
         <p class="card-text"><b>Address: </b>{{order.orderFullOrder}}</p>
@@ -25,8 +27,132 @@
             (click)="downloadInvoice(order.orderId)">Download
             invoice</button>
           <button *ngIf="order.orderStatus == 'PLACED' " class="btn btn-danger text-center"
-            (click)="cancelOrder(order)">Cancel Order</button>
+            (click)="downloadInvoice(order.orderId)">Cancel Order</button>
         </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<ul class="nav nav-tabs pad">
+  <li class="nav-item">
+    <a class="nav-link" [ngClass]="{'active':selectedFilter == 'ALL'}" aria-current="page"
+      (click)="filterOrders('ALL')">All Orders</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [ngClass]="{'active':selectedFilter == 'DELIVERED'}"
+      (click)="filterOrders('DELIVERED')">Delivered Orders</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [ngClass]="{'active':selectedFilter == 'CANCELLED'}"
+      (click)="filterOrders('CANCELLED')">Canceled Orders</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" [ngClass]="{'active':selectedFilter == 'PLACED'}" (click)="filterOrders('PLACED')">Placed
+      Orders</a>
+  </li>
+</ul>
+
+<div class="container mt-5">
+  <span>
+    <h1 class="text-center">My Orders</h1>
+  </span>
+
+  <table class="table table-striped">
+    <thead class="table-success">
+      <tr>
+        <th scope="col">OrderID</th>
+        <th scope="col">User Name</th>
+        <th scope="col">Delivery Address</th>
+        <th scope="col">Contact Number</th>
+        <th scope="col">Alt. Contact Number</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Status</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of filteredorderDetails">
+        <td (click)="openOrderModal(order)" data-bs-toggle="modal" data-bs-target="#orderModal"
+          style="cursor: pointer; font-weight: 20px; color: blue;">{{order.orderId}}</td>
+        <td>{{order.orderFullName}}</td>
+        <td>{{order.orderFullOrder}}</td>
+        <td>{{order.orderContactNumber}}</td>
+        <td>{{order.orderAlternateContactNumber}}</td>
+        <td>{{order.orderAmount | currency : 'INR' : 'symbol'}}</td>
+        <td>
+          <ng-container *ngIf="order.orderStatus!= 'PLACED' ">
+            {{order.orderStatus}}
+          </ng-container>
+          <ng-container *ngIf="order.orderStatus == 'PLACED'">
+            <a style="color: red; cursor: pointer; font-size: 15px; text-decoration: underline;"
+              (click)="cancelOrder(order)">cancel</a>
+          </ng-container>
+        </td>
+        <td (click)="openOrderModal(order)" data-bs-toggle="modal" data-bs-target="#orderModal"><a
+            style="cursor: pointer; color: blue; text-decoration: underline;">View Details</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="orderModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <form #orderForm="ngForm">
+              <div class="mb-3">
+                <label for="orderId" class="form-label">orderId</label>
+                <input name="orderId" class="form-control" id="orderId" aria-describedby="orderId"
+                  [(ngModel)]="order.orderId">
+              </div>
+              <div class="mb-3">
+                <label for="userName" class="form-label">User Name</label>
+                <input name="userName" class="form-control" id="userName" [(ngModel)]="order.orderFullName">
+              </div>
+              <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input name="address" class="form-control" id="address" [(ngModel)]="order.orderFullOrder">
+              </div>
+              <div class="mb-3">
+                <label for="contactNumber" class="form-label">Contact </label>
+                <input name="contactNumber" class="form-control" id="contactNumber"
+                  [(ngModel)]="order.orderContactNumber">
+              </div>
+              <div class="mb-3">
+                <label for="altcontactNumber" class="form-label">Alt Contact</label>
+                <input name="altcontactNumber" class="form-control" id="altcontactNumber"
+                  [(ngModel)]="order.orderAlternateContactNumber">
+              </div>
+              <div class="mb-3">
+                <label for="amount" class="form-label">Amount (Rupees)</label>
+                <input name="amount" class="form-control" id="amount" [(ngModel)]="order.orderAmount">
+              </div>
+              <div class="mb-3">
+                <label for="status" class="form-label">Order Status</label>
+                <input name="status" class="form-control" id="status" [(ngModel)]="order.orderStatus">
+              </div>
+            </form>
+          </div>
+          <div class="col-6">
+            <p class="card-text">Products</p>
+            <div *ngFor="let prod of order?.product">
+              <div style="margin-bottom: 1rem;">
+                <app-product-card-element [product]="prod.product"></app-product-card-element>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button *ngIf="order.orderStatus== 'DELIVERED'" type="button" class="btn btn-primary" data-bs-dismiss="modal"
+          (click)="downloadInvoice(order.orderId)">Download Invoice</button>
       </div>
     </div>
   </div>

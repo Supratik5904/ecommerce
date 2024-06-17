@@ -12,3 +12,11 @@
   gap: 15px;
   align-content: center;
 }
+
+ol .list-group {
+  list-style-type: upper-roman;
+}
+
+.pad {
+  padding-top: 80px;
+}

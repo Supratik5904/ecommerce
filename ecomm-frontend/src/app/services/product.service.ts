@@ -28,8 +28,8 @@ export class ProductService {
     return this.httpClient.get<SubCategory[]>(this.CATEGORY_API_PATH+`/subCategory?parentCategory=${categoryName}`);
   }
 
-  public getProductsByCategory(currentPage:number,categoryName: string){
-    return this.httpClient.get<Product[]>(this.API_PATH+"/allProducts/byCategory"+`?pageNumber=${currentPage}&category=${categoryName}`)
+  public getProductsByCategory(currentPage:number,categoryName: any,searchKey: string){
+    return this.httpClient.get<Product[]>(this.API_PATH+"/allProducts/byCategory"+`?pageNumber=${currentPage}&category=${categoryName}&searchKey=${searchKey}`)
   }
 
   public getProductsSearch(searchKey: string) {

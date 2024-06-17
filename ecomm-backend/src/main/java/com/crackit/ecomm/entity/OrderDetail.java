@@ -30,6 +30,5 @@ public class OrderDetail {
     private List<OrderProductQuantityMapping> product;
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
-    @JsonIgnore
     private User user;
 }

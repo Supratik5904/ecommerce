@@ -1,49 +1,27 @@
-<section class="bg-color">
+<section class="bg-color pad">
   <div class="containers">
     <div class="title">
       <h1><span>E-Commerce</span></h1>
     </div>
   </div>
 </section>
-<section class="category-section">
-  <div class="all_categories">
-    <div class="cat_row">
-      <div class="col" *ngFor="let cat of allCategories"><img class="category-icons" src="../../assets/fashion.jpg">
-        <div>{{cat.categoryName}}</div>
-      </div>
-    </div>
-  </div>
-</section>
+
 <hr>
 <section class="product-section">
+  <label style="margin-left: 74%;">Category : </label>
   <div class="contianer">
     <form #searchForm=ngForm (keyup)="onSearchDebounce()" class="d-flex">
       <input name="search" class="form-control me-2" type="search" placeholder="Search for Products..."
         aria-label="Search" [(ngModel)]="searchKey">
       <select class="category" name="categorySelect" id="categorySelect" [(ngModel)]="filterCategory"
         (ngModelChange)="changeCategory($event)">
-        <option disabled selected>Category</option>
-        <option *ngFor="let cat of allSubCategories" [value]="cat.subCategoryName">{{cat.subCategoryName}}</option>
+        <option selected value="all">All</option>
+        <option *ngFor="let cat of allSubCategories" [value]="cat.id">{{cat.subCategoryName}}</option>
       </select>
     </form>
-    <div class="row row-cols-4">
-      <div class="col" style="margin-top: 1.5rem;" *ngFor="let prod of products">
-        <div class="card">
-          <div class="product-container">
-            <div class="p" *ngFor="let image of prod.productImages" (click)="changeImage($event,prod.productId)">
-              <img [src]="image.url" [alt]="prod.productName">
-            </div>
-          </div>
-          <img [id]="prod.productId+'image'" [src]="prod.productImages[0].url" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h2 class="card-title">{{prod.productName}}</h2>
-            <p class="card-text discount">{{prod.productDiscountPrice | currency : 'INR':'symbol'}}</p>
-            <p class="card-text price">{{prod.productPrice |currency: 'INR':'symbol'}}</p>
-            <button class="btn btn-primary" (click)="viewDetails(prod.productId)">View Details</button>
-          </div>
-        </div>
-      </div>
-    </div>
+
+    <app-product-card [products]="products"></app-product-card>
+
   </div>
 </section>
 <div class="load-more-btn">

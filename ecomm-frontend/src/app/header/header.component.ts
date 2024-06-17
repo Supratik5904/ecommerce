@@ -13,6 +13,7 @@ export class HeaderComponent {
   public isLoggedIn : boolean = false;
   public isAdmin : boolean = false;
   public subscription !: Subscription;
+  showUserSideBar: boolean = false;
   constructor(private userAuthService :UserAuthService,private router: Router){}
 
   ngOnInit() : void{
@@ -27,5 +28,9 @@ export class HeaderComponent {
     this.userAuthService.clear();
     this.router.navigate(['/home']);
     this.userAuthService.sendIsLoggedIn(false);
+  }
+
+  toggleUserSideBar(){
+    this.showUserSideBar = !this.showUserSideBar
   }
 }

@@ -244,3 +244,7 @@
 .col {
   justify-content: space-evenly;
 }
+
+.pad {
+  padding-top: 200px;
+}

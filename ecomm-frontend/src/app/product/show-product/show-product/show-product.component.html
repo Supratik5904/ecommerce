@@ -1,4 +1,4 @@
-<div class="nav">
+<div class="nav fixed-nav">
   <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
       <form #searchForm=ngForm (keyup)="onSearchDebounce()" class="d-flex">
@@ -9,7 +9,7 @@
     </div>
   </nav>
 </div>
-<div class="container mt-5">
+<div class="container mt-5 pad">
   <table class="table">
     <thead class="table-dark">
       <tr>

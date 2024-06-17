@@ -1,0 +1,15 @@
+meta {
+  name: Get Logged In User
+  type: http
+  seq: 9
+}
+
+get {
+  url: http://localhost:8080/api/v1/user/loggedInUser
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX01FTUJFUixtYW5hZ2VtZW50OnJlYWQsbWFuYWdlbWVudDpjcmVhdGUiLCJpYXQiOjE3MTg1NjgyMzMsImV4cCI6MTcxODY1NDYzM30.F44R1vthu3-IlI6xTBWsOFJHTY0eNSb__cgUQumwY0E
+}

@@ -1,0 +1,16 @@
+<div class="card w-100">
+  <div class="product-container">
+    <div class="p" *ngFor="let image of product.productImages" (click)="changeImage($event,product.productId)">
+      <img [src]="image.url" [alt]="product.productName">
+    </div>
+  </div>
+  <ng-container *ngIf="product.productImages && product.productImages.length>0">
+    <img [id]="product.productId + 'image'" [src]="product.productImages[0].url" class="card-img-top" alt="...">
+  </ng-container>
+  <div class="card-body">
+    <h2 class="card-title">{{product.productName}}</h2>
+    <p class="card-text discount">{{product.productDiscountPrice | currency : 'INR':'symbol'}}</p>
+    <p class="card-text price">{{product.productPrice |currency: 'INR':'symbol'}}</p>
+    <button class="btn btn-primary" (click)="viewDetails(product.productId)">View Details</button>
+  </div>
+</div>

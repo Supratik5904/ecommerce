@@ -17,7 +17,7 @@ export class HomeComponent {
   currentPage: number =0 ;
   products: Product[] = [];
   productSubscription!: Subscription;
-  filterCategory?: Category;
+  filterCategory = 0;
   allCategories: Category[] = [];
   allSubCategories?: SubCategory[];
 
@@ -52,15 +52,7 @@ export class HomeComponent {
   }
 
   private findProducts(){
-    this.productService.getProductsBySearchKey(this.currentPage,this.searchKey)
-    .pipe(
-      map((x: Product[], i)=> x.map((product: Product)=>{
-        const productImages = this.imageService.createImage(product.productImages);
-        product.productImages = productImages;
-        return product;
-      })
-      )
-      )
+    this.productService.getProductsByCategory(this.currentPage,+this.filterCategory,this.searchKey)
     .subscribe(
       (response)=>{
         response.map(p=> this.products.push(p));
@@ -79,14 +71,6 @@ export class HomeComponent {
 
   onSearch() {
     this.productService.getProductsSearch(this.searchKey)
-    .pipe(
-      map((x: Product[])=> x.map((product: Product)=>{
-        const productImages = this.imageService.createImage(product.productImages);
-        product.productImages = productImages;
-        return product;
-      })
-      )
-      )
     .subscribe(
       (response)=>{
         this.products=[];
@@ -109,7 +93,19 @@ export class HomeComponent {
   }
 
   changeCategory($event: any) {
-    console.log(this.filterCategory);
-
+      this.currentPage= 0;
+      if($event == "all"){
+        this.filterCategory=0;
+      }
+      this.productService.getProductsByCategory(this.currentPage,+this.filterCategory,this.searchKey)
+      .subscribe(
+        (response)=>{
+          this.products=[];
+          response.map(p=> this.products.push(p));
+        },
+        (error)=>{
+          console.log(error);
+        }
+      )
     }
 }

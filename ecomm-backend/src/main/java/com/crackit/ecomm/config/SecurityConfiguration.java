@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                         req.requestMatchers("/api/v1/auth/*","/api/v1/category","/api/v1/category/subCategory","/api/v1/category/subCategoryByParent","api/v1/reviews/","/api/v1/products/allProducts/**","/api/v1/products/get/**")
                                 .permitAll()
                                 .requestMatchers("/api/v1/reviews/**").hasAnyRole(ADMIN.name(),MEMBER.name())
+                                .requestMatchers("/api/v1/user").hasAnyRole(ADMIN.name(),MEMBER.name())
                                 .requestMatchers("/api/v1/address/**").hasAnyRole(ADMIN.name(),MEMBER.name())
                                 .requestMatchers("/api/v1/products/**").hasAnyRole(ADMIN.name(), MEMBER.name())
                                 .requestMatchers("/api/v1/cart/**").hasAnyRole(ADMIN.name(),MEMBER.name())
@@ -56,6 +57,10 @@ public class SecurityConfiguration {
                                 .requestMatchers(PUT,"/api/v1/reviews/**").hasAnyAuthority(ADMIN_CREATE.name(), MEMBER_CREATE.name())
                                 .requestMatchers(PUT,"/api/v1/category/**").hasAnyAuthority(ADMIN_CREATE.name())
                                 .requestMatchers(POST,"/api/v1/category/**").hasAnyAuthority(ADMIN_CREATE.name())
+                                .requestMatchers(GET,"/api/v1/user").hasAnyAuthority(ADMIN.name(),MEMBER.name())
+                                .requestMatchers(POST,"/api/v1/user").hasAnyAuthority(ADMIN.name(),MEMBER.name())
+                                .requestMatchers(PUT,"/api/v1/user").hasAnyAuthority(ADMIN.name(),MEMBER.name())
+
                                 .anyRequest()
                                 .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

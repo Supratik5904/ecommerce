@@ -1,0 +1,23 @@
+meta {
+  name: Add Address
+  type: http
+  seq: 8
+}
+
+post {
+  url: http://localhost:8080/api/v1/address
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX01FTUJFUixtYW5hZ2VtZW50OnJlYWQsbWFuYWdlbWVudDpjcmVhdGUiLCJpYXQiOjE3MTg1NDg2NTQsImV4cCI6MTcxODYzNTA1NH0.eqH9NUN98KZsxr9RaI7qqR8t49L2fJax44aCTWA1ddU
+}
+
+body:json {
+  {
+    "city": "Agra",
+    "pinCode": 201301,
+    "state": "Uttar Pradesh"
+  }
+}

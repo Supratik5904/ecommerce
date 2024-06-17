@@ -77,13 +77,6 @@ export interface OrderProductQuantityMapping{
   quantity : number
 }
 
-export interface Address{
-  id : number;
-  user : {};
-  city : string;
-  pinCode : number;
-  state : string;
-}
 
 export interface Review{
   id : number;

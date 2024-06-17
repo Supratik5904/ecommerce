@@ -1,1 +1,67 @@
-<p>user works!</p>
+<div class="container mt-5">
+  <span>
+    <h1 class="text-center">Users</h1>
+  </span>
+
+  <table class="table table-striped">
+    <thead class="table-success">
+      <tr>
+        <th scope="col">User Id</th>
+        <th scope="col">User Name</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td (click)="openOrderModal(user)" data-bs-toggle="modal" data-bs-target="#orderModal"
+          style="cursor: pointer; font-weight: 20px; color: blue;">{{user.userId}}</td>
+        <td>{{user.userName}}</td>
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="orderModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <form #userForm="ngForm">
+            <div class="mb-3">
+              <label for="userId" class="form-label">User ID</label>
+              <input name="userId" class="form-control" id="userId" aria-describedby="userId"
+                [(ngModel)]="selectedUser.userId" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="userName" class="form-label">User Name</label>
+              <input name="userName" class="form-control" id="userName" [(ngModel)]="selectedUser.userName" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input name="firstName" class="form-control" id="firstName" [(ngModel)]="selectedUser.firstName" readonly>
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name </label>
+              <input name="lastName" class="form-control" id="lastName" [(ngModel)]="selectedUser.lastName" readonly>
+            </div>
+            <div class="mb-3" *ngFor="let address of selectedUser.addressList,let i=index">
+              <label for="address" class="form-label">{{'Address '+(i+1)}}</label>
+              <textarea name="address" class="form-control" id="address"
+                [value]="address.city+' '+address.state+' '+address.pinCode" rows="3" readonly></textarea>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

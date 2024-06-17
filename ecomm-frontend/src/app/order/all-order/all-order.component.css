@@ -1,0 +1,26 @@
+.navbar {
+  overflow: hidden;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: gray;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navbar a:hover {
+  color: black;
+}
+
+.navbar a.active {
+  color: blue;
+}
+
+.products {
+  display: flex;
+  flex-direction: row;
+}

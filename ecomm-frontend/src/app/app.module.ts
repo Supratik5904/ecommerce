@@ -36,6 +36,10 @@ import { MyOrderComponent } from './order/my-order/my-order.component';
 import { InvoiceComponent } from './order/invoice/invoice.component';
 import { ReviewsComponent } from './product/reviews/reviews.component';
 import { AllOrderComponent } from './order/all-order/all-order.component';
+import { ProductCardComponent } from './product/product-card/product-card.component';
+import { ProductCardElementComponent } from './product/product-card-element/product-card-element.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,11 @@ import { AllOrderComponent } from './order/all-order/all-order.component';
     MyOrderComponent,
     InvoiceComponent,
     ReviewsComponent,
-    AllOrderComponent
+    AllOrderComponent,
+    ProductCardComponent,
+    ProductCardElementComponent,
+    DashboardComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

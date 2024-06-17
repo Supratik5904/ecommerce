@@ -46,6 +46,13 @@ export class OrderDetailsComponent {
 
 
   placeOrder(orderForm: NgForm) {
+    const value = orderForm.value;
+    console.log(orderForm.value);
+    this.order.fullName = value.firstName+' '+value.lastName;
+    this.order.contactNumber = value.contactNumber;
+    this.order.fullAddress = value.address+' '+value.address2+' '+value.state+' '+value.countty+' ,'+value.zip;
+    this.order.alternateContactNumber= value.alternateContactNumber;
+
       let orderProdQunatity :OrderProductQuantity[] = [];
       this.products.map(prod=>orderProdQunatity.push({productId:prod.productId,quantity:1}));
       this.order.orderProductQuantityList = orderProdQunatity;

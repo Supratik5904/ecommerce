@@ -1,0 +1,21 @@
+meta {
+  name: Get Products By SubCategory
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://localhost:8080/api/v1/products/allProducts/byCategory?pageNumber=0&category=0&searchKey
+  body: none
+  auth: bearer
+}
+
+params:query {
+  pageNumber: 0
+  category: 0
+  searchKey: 
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGhvcml0aWVzIjoibWFuYWdlbWVudDpyZWFkLG1hbmFnZW1lbnQ6Y3JlYXRlLGFkbWluOnJlYWQsUk9MRV9BRE1JTixhZG1pbjpjcmVhdGUiLCJpYXQiOjE3MTgzMDcxNjgsImV4cCI6MTcxODM5MzU2OH0.b3XJC4UAnJSzl5v1NMuwYcqdeZPsx_jULA-HsqMdvgc
+}

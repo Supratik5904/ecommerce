@@ -5,3 +5,30 @@
 .order-btn button {
   margin: auto;
 }
+
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.pad {
+  padding: 20px 20px;
+}
+
+.container {
+  max-width: 960px;
+}
+
+.pad {
+  padding-top: 106px;
+}

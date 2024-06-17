@@ -61,8 +61,8 @@ public class ProductService {
         return  productRepository.getProductsByProductNameContainsIgnoreCaseOrProductDescriptionContainingIgnoreCase(key,key);
     }
 
-    public List<Product> getAllProductsByCategory(Pageable pageable, String categoryName) {
-        return productRepository.getProductsByCategory_SubCategoryNameContainingIgnoreCase(pageable,categoryName);
+    public List<Product> getAllProductsByCategory(Pageable pageable, Long categoryId,String key) {
+        return productRepository.findByCategory_IdAndProductNameContainingIgnoreCaseOrProductDescriptionContainingIgnoreCase(pageable,categoryId,key,key);
     }
 
     public List<Product> getRandProducts(Long categoryId) {

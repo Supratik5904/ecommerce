@@ -79,10 +79,13 @@ public class ProductController {
 
     @GetMapping("/allProducts/byCategory")
     @ResponseBody
-    public List<Product> getAllProductsByCategory( @RequestParam(name="pageNumber",defaultValue = "0") int pageNo,@RequestParam(name="pageSize",defaultValue = "6") int size,@RequestParam("category") String categoryName){
-        categoryName = URLDecoder.decode(categoryName, StandardCharsets.UTF_8);
+    public List<Product> getAllProductsByCategory( @RequestParam(name="pageNumber",defaultValue = "0") int pageNo,@RequestParam(name="pageSize",defaultValue = "8") int size,@RequestParam("category") Long categoryId,@RequestParam(name="searchKey",defaultValue = "") String key){
         Pageable pageable = PageRequest.of(pageNo,size);
-        return productService.getAllProductsByCategory(pageable,categoryName);
+        if(categoryId != 0) {
+            return productService.getAllProductsByCategory(pageable, categoryId, key);
+        }else{
+            return productService.getAllProductsBySearchKeyPaginated(pageable,key);
+        }
     }
 
     @GetMapping("/get/{productId}")
