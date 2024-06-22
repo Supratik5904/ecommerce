@@ -1,17 +1,21 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { OrderDetail } from 'src/app/model/product.model';
+import { User } from 'src/app/model/user.model';
 import { ProductService } from 'src/app/services/product.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-all-order',
   templateUrl: './all-order.component.html',
   styleUrls: ['./all-order.component.css']
 })
+
+
 export class AllOrderComponent {
-filterOrdersByUserName() {
-throw new Error('Method not implemented.');
-}
+
+  users$?: Observable<User[]>;
 
   orderDetails : OrderDetail[] = [];
   selectedFilter:string = 'ALL';
@@ -48,7 +52,19 @@ throw new Error('Method not implemented.');
     ]
   }
 
-  constructor(private productService: ProductService,private router: Router){};
+  filterOrdersByUserName(userName: string) {
+    this.productService.getAllOrders().subscribe(
+      (response)=>{
+        this.orderDetails = response.filter(order=> order.orderFullName.includes(userName));
+      },
+      (error)=>{
+        console.log(error);
+
+      }
+    )
+  }
+
+  constructor(private productService: ProductService,private router: Router,public userService: UserServiceService){};
   ngOnInit(): void {
     this.orderTitle = this.selectedFilter.concat(" ORDERS");
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -62,6 +78,7 @@ throw new Error('Method not implemented.');
 
       }
     )
+    this.users$ = this.userService.getAllUsers();
   }
   changeOrderStatus(event: any,order: OrderDetail){
     if(event.target.name == "cancel"){

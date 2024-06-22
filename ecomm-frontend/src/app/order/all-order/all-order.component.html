@@ -16,16 +16,12 @@
       Orders</a>
   </li>
   <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Filter By
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Filter By
       Users</a>
     <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Action</a></li>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
-      <li><a class="dropdown-item" href="#">Something else here</a></li>
-      <li>
-        <hr class="dropdown-divider">
+      <li *ngFor="let user of users$ | async" (click)="filterOrdersByUserName(user.firstName)">
+        <a class="dropdown-item">{{ user.firstName }}</a>
       </li>
-      <li><a class="dropdown-item" href="#">Separated link</a></li>
     </ul>
   </li>
 </ul>
@@ -56,7 +52,8 @@
         <td>{{order.orderContactNumber}}</td>
         <td>{{order.orderAlternateContactNumber}}</td>
         <td>{{order.orderAmount | currency : 'INR' : 'symbol'}}</td>
-        <td>{{order.orderStatus}}</td>
+        <td [ngClass]="{'text-green':order.orderStatus === 'DELIVERED','text-red':order.orderStatus === 'CANCELLED'}">
+          {{order.orderStatus}}</td>
       </tr>
     </tbody>
   </table>
